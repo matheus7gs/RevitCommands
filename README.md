@@ -12,8 +12,7 @@
 </p>
 
 <p align="center" style="display:flex">
-  <img alt="Revit | Comandos e atalhos" src=".github/desktop.png" width="70%">
-  <img alt="Revit | Comandos e atalhos" src=".github/mobile.png" width="30%">
+  <img alt="Revit | Comandos e atalhos" src=".github/desktop.png" width="100%">
 </p>
 
 ## 🚀 Tecnologias
