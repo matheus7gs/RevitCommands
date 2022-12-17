@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { SearchForm } from './components/SearchForm';
 import { Command } from './components/Command'
 import { PulseAnimation } from './components/PulseAnimation';
+import api from '../services/api';
+
 
 export type TypeCommands = {
   shortcut: string;
@@ -28,14 +30,9 @@ export function App() {
 
 
   useEffect(() => {
-    fetch(`https://revitshortcutsdb.herokuapp.com/categories`)
-    .then(response => response.json())
-    .then(data => setCategories(data))
-
-    fetch('https://revitshortcutsdb.herokuapp.com/commands')
-    .then(response => response.json())
-    .then(data => {
-      setCommands(data)
+    api.get('/categories').then(response => setCategories(response.data))
+    api.get('/commands').then(response => {
+      setCommands(response.data)
       setIsLoaded(true)
     })
   }, []) 
