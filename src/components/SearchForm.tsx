@@ -1,6 +1,6 @@
 import { useState, } from "react";
 import { Loading } from "./Loading";
-import { ThemeModal } from "./ThemeModal";
+import { ThemeSelector } from "./ThemeSelector";
 
 type searchFormType = {
    totalCommands: number;
@@ -16,14 +16,11 @@ export function SearchForm({
    childSearchParamToParent, 
    totalFilteredCommands,
    toggleIsLoaded
-}: searchFormType) {
+}: searchFormType) { 
 
    const [isLoading, setIsLoading] = useState(false)
    const [inputValue, setInputValue] = useState('')
    const [tabActive, settabActive] = useState('all')
-   const [isModalOpen, setIsModalOpen] = useState(false)
-
-
 
    function handleChange(value: string) {
       setInputValue(value)
@@ -38,12 +35,6 @@ export function SearchForm({
          setIsLoading(false)
          toggleIsLoaded(true)
       }, 500)
-
-
-   }
-
-   function closeModal() {
-      setIsModalOpen(false)
    }
 
    function classNames(...classes: string[]) {
@@ -51,10 +42,10 @@ export function SearchForm({
    }
 
    return (
-      <div>
-         <header className="header mb-3 pt-9 px-4 sm:px-8 border-b-2 border-gray-300 dark:border-zinc-600">
-            <div className="inputGroup flex w-full items-center justify-between mb-3">
-               <span className="w-5 h-5">
+      <div >
+         <header className="mb-3 pt-9 px-4 sm:px-8 border-b-2 border-gray-300 dark:border-zinc-600">
+            <div className="flex w-full items-center justify-between mb-3">
+               <span className="flex items-center justify-center w-6 h-6">
                   {isLoading 
                      ? <Loading /> 
                      : <img src="/assets/search.svg" alt="Search Icon" />
@@ -63,9 +54,10 @@ export function SearchForm({
                </span>
                
                <input 
-                  className="w-full mx-2 text-xl text-black dark:text-zinc-100 dark:bg-zinc-900 border-none font-medium placeholder:text-gray-300 dark:placeholder:text-zinc-700 placeholder:font-normal focus:placeholder:text-transparent focus:outline-none" 
+                  className="w-full mx-2 text-xl text-black dark:text-zinc-100 dark:bg-zinc-900 border-none font-medium placeholder:text-gray-300 dark:placeholder:text-zinc-700 placeholder:font-normal focus:placeholder:text-transparent focus:outline-none disabled:cursor-not-allowed disabled:placeholder:sr-only rounded" 
                   type="text" 
                   placeholder="Pesquisar..."
+                  disabled={totalCommands == 0}
                   value={inputValue}
                   onChange={(e) => { handleChange(e.target.value) }}
                />
@@ -91,18 +83,19 @@ export function SearchForm({
                      <a
                         onClick={() => {
                            settabActive('all')
-                           childSearchParamToParent(["command", "shortcut", "description", "category"])
+                           childSearchParamToParent(["command", "shortcut", "description", "categories"])
                         }}
                         className={classNames(
                            tabActive == 'all' ? 'font-medium text-black dark:text-zinc-200 border-current'
                               : ' font-normal  border-transparent hover:border-zinc-400 dark:hover:border-zinc-500'
                            )  + ' flex leading-6 pt-3 pb-2.5 px-2 border-b-2 z-50 -mb-px transition-all cursor-pointer'
-                        }>
+                     }>
                         Todos
                         <span className="px-1 ml-2 min-w-2 text-center bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-zinc-400 rounded-lg">
                            {tabActive == 'all' 
-                              ? (totalFilteredCommands || ((inputValue.trim().length == 0) 
-                                 ? totalCommands : 0)) 
+                              ? (totalFilteredCommands || (
+                                    (inputValue.trim().length == 0) ? totalCommands : 0
+                                 )) 
                               : 0
                            }
                         </span>
@@ -124,8 +117,9 @@ export function SearchForm({
                         Atalho
                         <span className="px-1 ml-2 min-w-2 text-center bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-zinc-400 rounded-lg">
                            {tabActive == 'shortcut'  
-                              ? (totalFilteredCommands || ((inputValue.trim().length == 0) 
-                                 ? totalCommands : 0)) 
+                              ? (totalFilteredCommands || (
+                                    (inputValue.trim().length == 0) ? totalCommands : 0
+                                 )) 
                               : 0
                            }
                         </span>
@@ -147,8 +141,9 @@ export function SearchForm({
                         Comando
                         <span className="px-1 ml-2 min-w-2 text-center bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-zinc-400 rounded-lg">
                            {tabActive == 'command' 
-                              ? (totalFilteredCommands || ((inputValue.trim().length == 0) 
-                                 ? totalCommands : 0)) 
+                              ? (totalFilteredCommands || (
+                                    (inputValue.trim().length == 0) ? totalCommands : 0
+                                 )) 
                               : 0
                            }
                         </span>
@@ -156,13 +151,8 @@ export function SearchForm({
                      </h2>
                   </li>
                </ul>
-               <button onClick={() => setIsModalOpen(!isModalOpen)} className="" type="button">
-                  <img src="/assets/settings.svg" alt="Opções" className="min-w-2 hover:animate-wiggle" />
-               </button>
 
-               {isModalOpen &&
-                  <ThemeModal closeModal={closeModal}/>
-               }
+               <ThemeSelector />
             </div>
          </header>
       </div>

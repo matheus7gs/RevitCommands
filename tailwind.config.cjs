@@ -15,6 +15,11 @@ module.exports = {
       minWidth: { 
         '1': '1rem',
         '2': '1.5rem',
+        '3': '2rem',
+        '4': '2.5rem',
+      },
+      minHeight: { 
+        '4': '2.5rem',
       },
       keyframes: {
         wiggle: {

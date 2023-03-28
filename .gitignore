@@ -25,3 +25,4 @@ dist-ssr
 
 .vercel
 db.json
+ndb.json
