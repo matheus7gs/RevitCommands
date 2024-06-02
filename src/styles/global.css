@@ -1,27 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* * {
-   padding: 0;
-   margin: 0;
-   box-sizing: border-box;
-
-   font-family: Roboto, sans-serif;
-   font-weight: 400;
-}
-*/
-:root {
-   --white: #ffffff;
-   --title: #000000;
-   --text: rgb(158, 158, 158);
-   --text-secondary: rgb(242, 242, 242);
-}
-
-
-body {
-   font-family: Roboto, sans-serif;
-   transition-duration: 200ms;
-   /* color: var(--text);
-   background: #f0f0f0; */
-} 

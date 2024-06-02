@@ -7,6 +7,12 @@ export function ThemeSelector() {
 
    const htmlClassList = document.documentElement.classList
 
+   if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+   } else {
+      document.documentElement.classList.remove('dark')
+   }
+
    function setTheme(theme: string) {
       if(theme == "dark") {
          htmlClassList.add(theme)
@@ -27,7 +33,7 @@ export function ThemeSelector() {
       <DropdownMenu.Root>
          <DropdownMenu.Trigger asChild>
             <button className="outline-none">
-                  <img src="/assets/settings.svg" alt="Opções" className="min-w-2 hover:animate-wiggle" />
+                  <img src="/assets/settings.svg" alt="Opções" className="min-w-6 hover:animate-wiggle" />
             </button>
          </DropdownMenu.Trigger>
 
